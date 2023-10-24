@@ -1,4 +1,5 @@
-import {formatCurrency} from "../../utils/helpers.js";
+import {formatCurrency} from '../../utils/helpers.js';
+import Button from '../../ui/Button.jsx';
 
 // eslint-disable-next-line react/prop-types
 function MenuItem({ pizza }) {
@@ -6,14 +7,29 @@ function MenuItem({ pizza }) {
   const { name, unitPrice, ingredients, soldOut, imageUrl } = pizza;
 
   return (
-    <li>
-      <img src={imageUrl} alt={name} />
-      <div>
-        <p>{name}</p>
+    <li className={'flex gap-4 py-2'}>
+      <img
+        src={imageUrl}
+        alt={name}
+        className={`${soldOut ? 'opacity-70 grayscale' : ''} h-24`}
+      />
+      <div className={'flex flex-1 flex-col'}>
+        <p className={'font-medium'}>{name}</p>
         {/* eslint-disable-next-line react/prop-types */}
-        <p>{ingredients.join(', ')}</p>
-        <div>
-          {!soldOut ? <p>{formatCurrency(unitPrice)}</p> : <p>Sold out</p>}
+        <p className={'text-sm capitalize italic text-stone-500'}>
+          {ingredients.join(', ')}
+        </p>
+        <div className={'mt-auto flex items-center justify-between'}>
+          {!soldOut ? (
+            <p className={'text-sm'}>{formatCurrency(unitPrice)}</p>
+          ) : (
+            <p className={'text-sm font-medium uppercase text-stone-500'}>
+              Sold out
+            </p>
+          )}
+          <Button to={''} type={'small'}>
+            Add to Cart
+          </Button>
         </div>
       </div>
     </li>
