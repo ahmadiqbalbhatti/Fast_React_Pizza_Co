@@ -1,26 +1,30 @@
 import {formatCurrency} from '../../utils/helpers.js';
 import Button from '../../ui/Button.jsx';
+import {addItem, getCurrentQuantityById} from '../cart/cartSlice.js';
 import {useDispatch, useSelector} from 'react-redux';
-import {addItem, getCart} from '../cart/cartSlice.js';
 import DeleteItem from '../cart/DeleteItem.jsx';
 
 // eslint-disable-next-line react/prop-types
 function MenuItem({ pizza }) {
   // eslint-disable-next-line react/prop-types
   const { id, name, unitPrice, ingredients, soldOut, imageUrl } = pizza;
-  // console.log(pizza);
-  const dispatch = useDispatch();
 
-  const cart = useSelector(getCart);
+  const dispatch = useDispatch();
+  const currentQuantity = useSelector(getCurrentQuantityById(id));
+  const isInCart = currentQuantity > 0;
+
+  // console.log(pizza);
 
   // console.log(cart);
 
-  const item = cart.find((item) => item.pizzaId === id);
-  console.log(item);
+  // My way of adding remove button to the MenuItems
+  // const cart = useSelector(getCart);
+  // const item = cart.find((item) => item.pizzaId === id);
+  // console.log(item);
 
   function handleAddToCart() {
-    console.log('Added item to the cart');
-    console.log(id);
+    // console.log('Added item to the cart');
+    // console.log(id);
 
     const newItem = {
       pizzaId: id,
@@ -57,9 +61,10 @@ function MenuItem({ pizza }) {
             </p>
           )}
 
-          {item?.pizzaId === id && <DeleteItem pizzaId={id} />}
+          {/*{item?.pizzaId === id && <DeleteItem pizzaId={id} />}*/}
 
-          {!soldOut && (
+          {isInCart && <DeleteItem pizzaId={id} />}
+          {!soldOut && !isInCart && (
             <Button to={''} type={'small'} onClick={handleAddToCart}>
               Add to Cart
             </Button>
