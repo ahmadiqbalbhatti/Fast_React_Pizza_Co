@@ -4,6 +4,8 @@
 import {Form, redirect, useActionData, useNavigation} from 'react-router-dom';
 import {createOrder} from '../../services/apiRestaurant.js';
 import Button from '../../ui/Button.jsx';
+import {useSelector} from 'react-redux';
+import {getUsername} from '../user/userSlice.js';
 
 const isValidPhone = (str) =>
   /^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/.test(
@@ -36,6 +38,7 @@ const fakeCart = [
 
 function CreateOrder() {
   const navigation = useNavigation();
+  const username = useSelector(getUsername);
 
   const isSubmitting = navigation.state === 'submitting';
   // const [withPriority, setWithPriority] = useState(false);
@@ -58,6 +61,7 @@ function CreateOrder() {
               type="text"
               name="customer"
               required
+              defaultValue={username}
             />
           </div>
         </div>

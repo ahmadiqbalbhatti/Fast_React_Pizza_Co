@@ -1,5 +1,5 @@
 import { formatCurrency } from '../../utils/helpers.js';
-import Button from '../../ui/Button.jsx';
+import DeleteItem from './DeleteItem.jsx';
 
 function CartItem({ item }) {
   const { pizzaId, name, quantity, totalPrice } = item;
@@ -15,7 +15,7 @@ function CartItem({ item }) {
       </p>
       <div className={'flex items-center justify-between gap-3 '}>
         <p>{formatCurrency(totalPrice)}</p>
-        <Button type={'small'}>Remove</Button>
+        <DeleteItem pizzaId={pizzaId} />
       </div>
     </li>
   );

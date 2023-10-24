@@ -1,10 +1,39 @@
 import {formatCurrency} from '../../utils/helpers.js';
 import Button from '../../ui/Button.jsx';
+import {useDispatch, useSelector} from 'react-redux';
+import {addItem, getCart} from '../cart/cartSlice.js';
+import DeleteItem from '../cart/DeleteItem.jsx';
 
 // eslint-disable-next-line react/prop-types
 function MenuItem({ pizza }) {
   // eslint-disable-next-line react/prop-types
-  const { name, unitPrice, ingredients, soldOut, imageUrl } = pizza;
+  const { id, name, unitPrice, ingredients, soldOut, imageUrl } = pizza;
+  // console.log(pizza);
+  const dispatch = useDispatch();
+
+  const cart = useSelector(getCart);
+
+  // console.log(cart);
+
+  const item = cart.find((item) => item.pizzaId === id);
+  console.log(item);
+
+  function handleAddToCart() {
+    console.log('Added item to the cart');
+    console.log(id);
+
+    const newItem = {
+      pizzaId: id,
+      name: name,
+      quantity: 1,
+      unitPrice: unitPrice,
+      totalPrice: unitPrice * 1,
+    };
+
+    dispatch(addItem(newItem));
+
+    // dispatch(addItem(pizza));
+  }
 
   return (
     <li className={'flex gap-4 py-2'}>
@@ -27,9 +56,14 @@ function MenuItem({ pizza }) {
               Sold out
             </p>
           )}
-          <Button to={''} type={'small'}>
-            Add to Cart
-          </Button>
+
+          {item?.pizzaId === id && <DeleteItem />}
+
+          {!soldOut && (
+            <Button to={''} type={'small'} onClick={handleAddToCart}>
+              Add to Cart
+            </Button>
+          )}
         </div>
       </div>
     </li>
