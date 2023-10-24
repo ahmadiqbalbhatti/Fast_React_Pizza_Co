@@ -15,7 +15,7 @@ function CartItem({ item }) {
       </p>
       <div className={'flex items-center justify-between gap-3 '}>
         <p>{formatCurrency(totalPrice)}</p>
-        <Button type={'small'}>Delete</Button>
+        <Button type={'small'}>Remove</Button>
       </div>
     </li>
   );
