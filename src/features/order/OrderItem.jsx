@@ -1,13 +1,12 @@
 import { formatCurrency } from '../../utils/helpers.js';
-import Loader from '../../ui/Loader.jsx';
 
 function OrderItem({ item, isLoadingIngredients, ingredients }) {
   const { quantity, name, totalPrice } = item;
 
-  if (isLoadingIngredients) return <Loader />;
+  // if (isLoadingIngredients) return <Loader />;
   // console.log(ingredients);
   return (
-    <li className={'py-3'}>
+    <li className={'space-y-1 py-3'}>
       <div
         className={'flex items-center justify-between gap-4 text-sm font-bold'}
       >
@@ -17,7 +16,7 @@ function OrderItem({ item, isLoadingIngredients, ingredients }) {
         <p>{formatCurrency(totalPrice)}</p>
       </div>
       <p className={'text-sm capitalize italic text-stone-500'}>
-        {ingredients?.join(', ')}
+        {isLoadingIngredients ? 'Loading...' : ingredients?.join(', ')}
       </p>
     </li>
   );

@@ -84,7 +84,7 @@ function Order() {
             item={item}
             key={index}
             isLoadingIngredients={fetcher.state === 'loading'}
-            ingredients={ingredients(item.pizzaId)}
+            ingredients={ingredients(item.pizzaId) ?? []}
           />
         ))}
       </ul>
