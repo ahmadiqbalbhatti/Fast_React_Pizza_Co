@@ -24,9 +24,6 @@ function MenuItem({ pizza }) {
   // console.log(item);
 
   function handleAddToCart() {
-    // console.log('Added item to the cart');
-    // console.log(id);
-
     const newItem = {
       pizzaId: id,
       name: name,

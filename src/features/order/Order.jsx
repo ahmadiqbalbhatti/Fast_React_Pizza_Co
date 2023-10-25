@@ -20,8 +20,6 @@ function Order() {
     if (!fetcher.data && fetcher.state === 'idle') fetcher.load('/menu');
   }, [fetcher]);
 
-  console.log(fetcher.data);
-
   const ingredients = (pizzaId) => {
     return fetcher.data?.find((item) => item.id === pizzaId).ingredients;
   };

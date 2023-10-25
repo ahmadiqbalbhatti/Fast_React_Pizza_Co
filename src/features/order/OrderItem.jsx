@@ -4,7 +4,6 @@ function OrderItem({ item, isLoadingIngredients, ingredients }) {
   const { quantity, name, totalPrice } = item;
 
   // if (isLoadingIngredients) return <Loader />;
-  // console.log(ingredients);
   return (
     <li className={'space-y-1 py-3'}>
       <div
