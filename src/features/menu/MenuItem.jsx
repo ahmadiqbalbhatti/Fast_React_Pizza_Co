@@ -3,6 +3,7 @@ import Button from '../../ui/Button.jsx';
 import {addItem, getCurrentQuantityById} from '../cart/cartSlice.js';
 import {useDispatch, useSelector} from 'react-redux';
 import DeleteItem from '../cart/DeleteItem.jsx';
+import UpdateItemQuantity from '../cart/UpdateItemQuantity.jsx';
 
 // eslint-disable-next-line react/prop-types
 function MenuItem({ pizza }) {
@@ -63,7 +64,15 @@ function MenuItem({ pizza }) {
 
           {/*{item?.pizzaId === id && <DeleteItem pizzaId={id} />}*/}
 
-          {isInCart && <DeleteItem pizzaId={id} />}
+          {isInCart && (
+            <div className={'flex items-center gap-3 md:gap-8'}>
+              <UpdateItemQuantity
+                currentQuantity={currentQuantity}
+                pizzaId={id}
+              />
+              <DeleteItem pizzaId={id} />
+            </div>
+          )}
           {!soldOut && !isInCart && (
             <Button to={''} type={'small'} onClick={handleAddToCart}>
               Add to Cart
